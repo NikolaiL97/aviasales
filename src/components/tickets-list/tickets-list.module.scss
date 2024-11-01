@@ -1,0 +1,25 @@
+.ticket-list {
+  @media (max-width: 530) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.ticketsList-button {
+  width: 502px;
+  height: 50px;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  font-family: 'OpenSans', sans-serif;
+  line-height: 20px;
+  font-weight: 400;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+  @media (max-width: 530px) {
+    width: 350px;
+  }
+}

@@ -1,0 +1,9 @@
+.header {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 800px) {
+    min-height: 70px;
+  }
+}

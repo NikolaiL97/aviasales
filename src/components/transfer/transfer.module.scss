@@ -1,30 +1,3 @@
-.filter-transfer {
-  background-color: #fff;
-  width: 232px;
-  height: 252px;
-  border-radius: 10px;
-  font-family: 'OpenSans', sans-serif;
-  line-height: 20px;
-  font-weight: 300;
-  font-size: 12px;
-  color: #4a4a4a;
-}
-
-.title {
-  display: flex;
-  justify-content: center;
-  font-family: 'OpenSans', sans-serif;
-  line-height: 12px;
-  font-weight: 400;
-  font-size: 12px;
-  color: #4a4a4a;
-  text-transform: uppercase;
-
-  p {
-    margin: 15px 0 10px 0;
-  }
-}
-
 p {
   margin: 4px;
 }
@@ -75,8 +48,10 @@ p {
   }
 }
 
-.real-checkbox:checked + .custom-checkbox::before {
-  transform: translate(-50%, -50%) scale(0.8);
+.checkbox-focus {
+  .custom-checkbox::before {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
 }
 
 .real-checkbox:checked + .custom-checkbox {

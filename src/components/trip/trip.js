@@ -6,7 +6,6 @@ import classes from './trip.module.scss';
 
 function Trip(props) {
   const dispatch = useDispatch();
-
   const { label, id, selected } = props.item;
 
   let focusClass = '';

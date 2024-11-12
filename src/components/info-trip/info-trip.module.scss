@@ -1,0 +1,21 @@
+div {
+  font-family: 'OpenSans', sans-serif;
+  line-height: 21px;
+  font-weight: 400;
+  font-size: 14px;
+  color: #4a4a4a;
+  letter-spacing: 0px;
+  & p {
+    line-height: 18px;
+    font-size: 12px;
+    color: #a0b0b9;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+}
+
+.info-trip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}

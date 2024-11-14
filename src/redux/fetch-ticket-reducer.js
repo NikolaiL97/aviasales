@@ -2,8 +2,7 @@ import { FETCH_TICKET_ID, FETCH_TICKETS } from './types';
 
 const initialState = {
   searchId: null,
-  ticket: null,
-  stop: true,
+  ticket: [],
 };
 
 // eslint-disable-next-line default-param-last, import/prefer-default-export
@@ -18,8 +17,7 @@ export const fetchTicketIdReduser = (state = initialState, action) => {
     case FETCH_TICKETS:
       return {
         ...state,
-        ticket: action.tickets.tickets,
-        stop: action.tickets.stop,
+        ticket: action.tickets,
       };
 
     default:

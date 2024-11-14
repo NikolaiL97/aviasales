@@ -9,6 +9,7 @@ function FilterTransfer() {
     const { filterTransfer } = state.filterTransfer;
     return filterTransfer;
   });
+
   const elems = filter.map((el) => <Transfer key={el.id} item={el} />);
 
   return (

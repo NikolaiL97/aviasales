@@ -3,11 +3,12 @@ import { ON_SELECT_FILTER_TRANSFER } from './types';
 const initialState = {
   filterTransfer: [
     { label: 'Все', id: 4, selected: false },
-    { label: 'Без пересадок', id: 5, selected: false },
+    { label: 'Без пересадок', id: 5, selected: true },
     { label: '1 пересадка', id: 6, selected: false },
     { label: '2 пересадки', id: 7, selected: false },
     { label: '3 пересадки', id: 8, selected: false },
   ],
+  selected: true,
 };
 
 // eslint-disable-next-line default-param-last, import/prefer-default-export
@@ -15,7 +16,7 @@ export const filterTransferReducer = (state = initialState, action) => {
   switch (action.type) {
     case ON_SELECT_FILTER_TRANSFER: {
       const { id } = action;
-      let { filterTransfer } = state;
+      let { filterTransfer, selected } = state;
       const idx = filterTransfer.findIndex((el) => el.id === id);
       const oldFilterTransfer = filterTransfer[idx];
       if (oldFilterTransfer.id === 4) {
@@ -78,9 +79,24 @@ export const filterTransferReducer = (state = initialState, action) => {
           filterTransfer[0] = allfilterTransfer;
         }
       }
+
+      let s = 0;
+      filterTransfer.map((el) => {
+        if (el.selected) {
+          s = 1;
+        }
+        return s;
+      });
+      if (s === 1) {
+        selected = true;
+      } else {
+        selected = false;
+      }
+
       return {
         ...state,
         filterTransfer,
+        selected,
       };
     }
 

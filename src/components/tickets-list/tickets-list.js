@@ -10,8 +10,9 @@ import {
   fetchTicketSearch,
   ticketApiService,
 } from '../../services/ticket-api-service';
-import ErrorIndicator from '../../services/error-indicator';
+import ErrorIndicator from '../error-indicator/error-indicator';
 
+import { filtTR, sortTR } from './ticket-list-servis';
 import classes from './tickets-list.module.scss';
 
 function TicketsList() {
@@ -21,6 +22,7 @@ function TicketsList() {
   const dispatch = useDispatch();
 
   let idSearch;
+  let elems = null;
 
   function onError() {
     setError(true);
@@ -84,58 +86,9 @@ function TicketsList() {
     return <Spin className={classes['error-indicator']} />;
   }
 
-  let elems = null;
-
   if (ticketsState) {
-    if (!filterTransferState[4].selected) {
-      ticketsState = ticketsState.filter((el) => {
-        const stopsOne = el.segments[0].stops.length;
-        const stopsTwo = el.segments[1].stops.length;
-        if (stopsOne === 3 || stopsTwo === 3) {
-          return false;
-        }
-        return true;
-      });
-    }
-    if (!filterTransferState[3].selected) {
-      ticketsState = ticketsState.filter((el) => {
-        const stopsOne = el.segments[0].stops.length;
-        const stopsTwo = el.segments[1].stops.length;
-        if (stopsOne === 2 || stopsTwo === 2) {
-          return false;
-        }
-        return true;
-      });
-    }
-    if (!filterTransferState[2].selected) {
-      ticketsState = ticketsState.filter((el) => {
-        const stopsOne = el.segments[0].stops.length;
-        const stopsTwo = el.segments[1].stops.length;
-        if (stopsOne === 1 || stopsTwo === 1) {
-          return false;
-        }
-        return true;
-      });
-    }
-    if (!filterTransferState[1].selected) {
-      ticketsState = ticketsState.filter((el) => {
-        const stopsOne = el.segments[0].stops.length;
-        const stopsTwo = el.segments[1].stops.length;
-        if (!stopsOne || !stopsTwo) {
-          return false;
-        }
-        return true;
-      });
-    }
-    if (arrTripSelected[1]) {
-      ticketsState = [...ticketsState].sort((a, b) => {
-        const aSumDur = a.segments[0].duration + a.segments[1].duration;
-        const bSumDur = b.segments[0].duration + b.segments[1].duration;
-        return aSumDur - bSumDur;
-      });
-    } else if (arrTripSelected[0]) {
-      ticketsState = [...ticketsState].sort((a, b) => a.price - b.price);
-    }
+    ticketsState = filtTR(filterTransferState, ticketsState);
+    ticketsState = sortTR(arrTripSelected, ticketsState);
     ticketsState = ticketsState.slice(0, index);
     elems = ticketsState.map((el, idx) => {
       const keyValue = `ticket-${idx}`;

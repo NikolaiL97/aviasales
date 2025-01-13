@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 
+import UseStore from '../utilits';
 import Ticket from '../ticket/ticket';
-import { fetchTickets } from '../../redux/actions';
+import { fetchTickets, errorTickets, stopTickets } from '../../redux/actions';
 import {
   fetchTicket,
   fetchTicketSearch,
@@ -17,15 +18,16 @@ import classes from './tickets-list.module.scss';
 
 function TicketsList() {
   const [index, setIndex] = useState(5);
-  const [error, setError] = useState(false);
   const [load, setLoad] = useState(true);
   const dispatch = useDispatch();
+  const { selected, filterTransfer, filterTrip, error } = UseStore();
+  let { ticket } = UseStore();
 
   let idSearch;
   let elems = null;
 
   function onError() {
-    setError(true);
+    dispatch(errorTickets());
   }
 
   useEffect(() => {
@@ -41,34 +43,14 @@ function TicketsList() {
       .then(() => ticketApiService(idSearch))
       .then((body) => {
         dispatch(fetchTickets(body));
+        dispatch(stopTickets());
       })
       .catch(() => {
         onError();
       });
   }, []);
 
-  let ticketsState = useSelector((state) => {
-    const ticketInfo = state.fetchTicketId.ticket;
-    return ticketInfo;
-  });
-
-  const selectedTransferState = useSelector((state) => {
-    const { selected } = state.filterTransfer;
-    return selected;
-  });
-
-  const filterTransferState = useSelector((state) => {
-    const { filterTransfer } = state.filterTransfer;
-    return filterTransfer;
-  });
-
-  const selectedTripState = useSelector((state) => {
-    const { filterTrip } = state.filterTrip;
-    return filterTrip;
-  });
-
-  const arrTripSelected = [];
-  selectedTripState.map((el) => arrTripSelected.push(el.selected));
+  const arrTripSelected = filterTrip.map((el) => el.selected);
 
   const hadlerClick = () => {
     setIndex((i) => i + 5);
@@ -83,22 +65,21 @@ function TicketsList() {
   }
 
   if (load) {
-    return <Spin className={classes['error-indicator']} />;
+    return <Spin className={classes.central} />;
   }
 
-  if (ticketsState) {
-    ticketsState = filtTR(filterTransferState, ticketsState);
-    ticketsState = sortTR(arrTripSelected, ticketsState);
-    ticketsState = ticketsState.slice(0, index);
-    elems = ticketsState.map((el, idx) => {
-      const keyValue = `ticket-${idx}`;
-      return <Ticket key={keyValue} info={el} />;
-    });
+  if (ticket) {
+    ticket = filtTR(filterTransfer, ticket);
+    ticket = sortTR(arrTripSelected, ticket);
+    ticket = ticket.slice(0, index);
+    elems = ticket.map((el, idx) => (
+      <Ticket key={`ticket-${idx + 1}`} info={el} />
+    ));
   }
 
-  if (!selectedTransferState) {
+  if (!selected) {
     return (
-      <div className={classes['error-indicator']}>
+      <div className={classes.central}>
         <p>Рейсов, подходящих под заданные фильтры, не найдено</p>
       </div>
     );
@@ -106,11 +87,11 @@ function TicketsList() {
 
   if (elems) {
     return (
-      <div className={classes['ticket-list']}>
+      <div className={classes.ticketList}>
         {elems}
         <button
           type="button"
-          className={classes['ticketsList-button']}
+          className={classes.ticketsListButton}
           onClick={hadlerClick}
         >
           Показать еще 5 билетов!
@@ -118,7 +99,6 @@ function TicketsList() {
       </div>
     );
   }
-  return <Spin />;
 }
 
 export default TicketsList;

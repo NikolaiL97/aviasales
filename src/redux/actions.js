@@ -3,9 +3,10 @@ import {
   ON_SELECT_FILTER_TRANSFER,
   FETCH_TICKET_ID,
   FETCH_TICKETS,
+  ERROR_TICKETS,
+  STOP_TICKETS,
 } from './types';
 
-// eslint-disable-next-line import/prefer-default-export
 export function onSelectFilterTrip(id) {
   return {
     type: ON_SELECT_FILTER_TRIP,
@@ -31,5 +32,17 @@ export function fetchTickets(tickets) {
   return {
     type: FETCH_TICKETS,
     tickets,
+  };
+}
+
+export function errorTickets() {
+  return {
+    type: ERROR_TICKETS,
+  };
+}
+
+export function stopTickets() {
+  return {
+    type: STOP_TICKETS,
   };
 }

@@ -1,4 +1,4 @@
-.ticket-list {
+.ticketList {
   @media (max-width: 530) {
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
   }
 }
 
-.ticketsList-button {
+.ticketsListButton {
   width: 502px;
   height: 50px;
   background-color: #2196f3;
@@ -24,7 +24,7 @@
   }
 }
 
-.error-indicator {
+.central {
   display: flex;
   justify-content: center;
 }

@@ -11,11 +11,6 @@ function Transfer(props) {
   const dispatch = useDispatch();
   const { label, id, selected } = props.item;
 
-  let checkboxFocus = '';
-  if (selected) {
-    checkboxFocus = classes['checkbox-focus'];
-  }
-
   function handlerClick(e) {
     e.preventDefault();
     dispatch(onSelectFilterTransfer(id));
@@ -23,13 +18,15 @@ function Transfer(props) {
 
   return (
     <div onClick={handlerClick}>
-      <label className={`${checkboxFocus} ${classes.checkbox}`}>
-        <input
-          type="checkbox"
-          name="all"
-          className={classes['real-checkbox']}
-        />
-        <span className={` ${classes['custom-checkbox']}`}> </span>
+      <label
+        className={
+          selected
+            ? `${classes.checkboxFocus} ${classes.checkbox}`
+            : `${classes.checkbox}`
+        }
+      >
+        <input type="checkbox" name="all" className={classes.realCheckbox} />
+        <span className={classes.customCheckbox}> </span>
         <p>{label}</p>
       </label>
     </div>

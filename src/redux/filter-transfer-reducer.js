@@ -2,11 +2,11 @@ import { ON_SELECT_FILTER_TRANSFER } from './types';
 
 const initialState = {
   filterTransfer: [
-    { label: 'Все', id: 4, selected: false },
-    { label: 'Без пересадок', id: 5, selected: true },
-    { label: '1 пересадка', id: 6, selected: false },
-    { label: '2 пересадки', id: 7, selected: false },
-    { label: '3 пересадки', id: 8, selected: false },
+    { label: 'Все', id: 4, selected: false, stop: false },
+    { label: 'Без пересадок', id: 5, selected: true, stop: 0 },
+    { label: '1 пересадка', id: 6, selected: false, stop: 1 },
+    { label: '2 пересадки', id: 7, selected: false, stop: 2 },
+    { label: '3 пересадки', id: 8, selected: false, stop: 3 },
   ],
   selected: true,
 };

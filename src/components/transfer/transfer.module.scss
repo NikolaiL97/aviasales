@@ -12,7 +12,7 @@ p {
   }
 }
 
-.real-checkbox {
+.realCheckbox {
   width: 0;
   height: 0;
   opacity: 0;
@@ -20,7 +20,7 @@ p {
   z-index: -1;
 }
 
-.custom-checkbox {
+.customCheckbox {
   position: relative;
   display: inline-block;
   width: 20px;
@@ -48,12 +48,12 @@ p {
   }
 }
 
-.checkbox-focus {
-  .custom-checkbox::before {
+.checkboxFocus {
+  .customCheckbox::before {
     transform: translate(-50%, -50%) scale(0.8);
   }
 }
 
-.real-checkbox:checked + .custom-checkbox {
+.realCheckbox:checked + .customCheckbox {
   border: 2px solid #2196f3;
 }

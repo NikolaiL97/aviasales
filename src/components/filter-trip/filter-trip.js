@@ -1,15 +1,11 @@
-import { useSelector } from 'react-redux';
-
 import Trip from '../trip/trip';
+import UseStore from '../utilits';
 
 import classes from './filter-trip.module.scss';
 
 function FilterTrip() {
-  const filter = useSelector((state) => {
-    const { filterTrip } = state.filterTrip;
-    return filterTrip;
-  });
-  const elems = filter.map((el) => (
+  const { filterTrip } = UseStore();
+  const elems = filterTrip.map((el) => (
     <Trip
       key={el.id}
       item={el}
@@ -17,7 +13,7 @@ function FilterTrip() {
     />
   ));
 
-  return <div className={classes['filter-trip-button']}>{elems}</div>;
+  return <div className={classes.filterTripButton}>{elems}</div>;
 }
 
 export default FilterTrip;

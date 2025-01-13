@@ -1,44 +1,19 @@
 export function filtTR(arr, ticketsState) {
-  if (!arr[4].selected) {
-    ticketsState = ticketsState.filter((el) => {
-      const stopsOne = el.segments[0].stops.length;
-      const stopsTwo = el.segments[1].stops.length;
-      if (stopsOne === 3 || stopsTwo === 3) {
-        return false;
+  arr = arr.filter((el) => el.selected).map((el) => el.stop);
+  ticketsState = ticketsState.filter((el) => {
+    const T2 = [el.segments[0].stops.length, el.segments[1].stops.length];
+    const NOV = [];
+    let ticket = false;
+    T2.map((elem) => {
+      const tr = arr.filter((item) => item === elem);
+      if (tr.length > 0) {
+        NOV.push(tr);
       }
-      return true;
+      return (ticket = NOV.length === T2.length);
     });
-  }
-  if (!arr[3].selected) {
-    ticketsState = ticketsState.filter((el) => {
-      const stopsOne = el.segments[0].stops.length;
-      const stopsTwo = el.segments[1].stops.length;
-      if (stopsOne === 2 || stopsTwo === 2) {
-        return false;
-      }
-      return true;
-    });
-  }
-  if (!arr[2].selected) {
-    ticketsState = ticketsState.filter((el) => {
-      const stopsOne = el.segments[0].stops.length;
-      const stopsTwo = el.segments[1].stops.length;
-      if (stopsOne === 1 || stopsTwo === 1) {
-        return false;
-      }
-      return true;
-    });
-  }
-  if (!arr[1].selected) {
-    ticketsState = ticketsState.filter((el) => {
-      const stopsOne = el.segments[0].stops.length;
-      const stopsTwo = el.segments[1].stops.length;
-      if (!stopsOne || !stopsTwo) {
-        return false;
-      }
-      return true;
-    });
-  }
+
+    return ticket;
+  });
   return ticketsState;
 }
 

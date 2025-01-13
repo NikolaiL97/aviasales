@@ -5,24 +5,24 @@ export async function fetchTicketSearch() {
 }
 
 export async function fetchTicket(searchId) {
+  let counter = 0;
   let res = await fetch(
     `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
   );
   if (!res.ok) {
-    res = await fetch(
-      `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
-    );
+    while (counter < 3) {
+      counter++;
+      // eslint-disable-next-line no-await-in-loop
+      res = await fetch(
+        `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
+      );
+      if (res.ok) {
+        counter = 0;
+        break;
+      }
+    }
   }
-  if (!res.ok) {
-    res = await fetch(
-      `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
-    );
-  }
-  if (!res.ok) {
-    res = await fetch(
-      `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
-    );
-  }
+
   if (!res.ok) {
     throw new Error('WOOOW');
   }
@@ -45,11 +45,7 @@ export async function ticketApiService(id) {
       arrTicket.push(ticketsInfo.tickets);
     }
   }
-  const arr = [];
-  arrTicket.forEach((el) => {
-    el.forEach((item) => {
-      arr.push(item);
-    });
-  });
+  let arr = [];
+  arrTicket.map((el) => (arr = arr.concat(el)));
   return arr;
 }

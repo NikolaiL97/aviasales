@@ -5,7 +5,9 @@ import classes from './header.module.scss';
 function Header() {
   return (
     <div className={classes.header}>
-      <img src={logo} alt="Logo" className={classes['header-logo']} />
+      <a href="#/" className={classes.headerRef}>
+        <img src={logo} alt="Logo" className={classes.headerLogo} />
+      </a>
     </div>
   );
 }

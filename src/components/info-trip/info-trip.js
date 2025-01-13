@@ -2,6 +2,8 @@ import { add, format, hoursToMinutes, minutesToHours } from 'date-fns';
 
 import classes from './info-trip.module.scss';
 
+type;
+
 function InfoTrip(props) {
   const { origin, destination, duration } = props.info;
   let { date, stops } = props.info;
@@ -18,18 +20,25 @@ function InfoTrip(props) {
   const timeTravel = `${durationHours}ч ${durationMinutes}м`;
 
   let stop = 'БЕЗ ПЕРЕСАДОК';
-  if (stops.length === 1) {
-    stop = '1 ПЕРЕСАДКА';
-  } else if (stops.length === 2) {
-    stop = '2 ПЕРЕСАДКИ';
-  } else if (stops.length === 3) {
-    stop = '3 ПЕРЕСАДКИ';
+
+  switch (stops.length) {
+    case 1:
+      stop = '1 ПЕРЕСАДКА';
+      break;
+    case 2:
+      stop = '2 ПЕРЕСАДКИ';
+      break;
+    case 3:
+      stop = '3 ПЕРЕСАДКИ';
+      break;
+    default:
+      break;
   }
 
   stops = stops.join(', ');
 
   return (
-    <div className={classes['info-trip']}>
+    <div className={classes.infoTrip}>
       <div>
         <div>
           <p>

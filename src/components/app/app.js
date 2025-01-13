@@ -5,7 +5,7 @@ import TicketsList from '../tickets-list/tickets-list';
 import Uploader from '../upload/upload';
 
 import classes from './app.module.scss';
-
+console.log('test');
 export default function App() {
   return (
     <section className={classes.aviasalesApp}>
